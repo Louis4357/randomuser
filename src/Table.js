@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import DataGrid, { Column, Sorting } from 'devextreme-react/data-grid'
+import DataGrid, { Column, Sorting, StateStoring } from 'devextreme-react/data-grid'
 
 export default function Query({ value, country, selected }) {
     const [data, setData] = useState([]);
@@ -41,6 +41,7 @@ export default function Query({ value, country, selected }) {
                 onSelectionChanged={selected}
             >
                 <Sorting mode="multiple" />
+                <StateStoring enabled={true} type="localStorage" storageKey="storage" />
                 <Column dataField="FirstName" />
                 <Column dataField="LastName" />
                 <Column dataField="age" />
