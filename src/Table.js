@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import DataGrid, { Column, Sorting, StateStoring } from 'devextreme-react/data-grid'
 
-export default function Query({ value, country, selected }) {
+export default function Query({ value, country, selected, datasource }) {
     const [data, setData] = useState([]);
     var nat = country !== "" ? `&nat=${country}` : ""
+    var source = datasource === "random" ? "" : "&seed=foobar"
 
     useEffect(() => {
-        fetchData(value, nat)
-    }, [value, nat])
+        fetchData(value, nat, source)
+    }, [value, nat, source])
 
-    async function fetchData(value, nat) {
+    async function fetchData(value, nat, source) {
         if (value > 1) {
-            await fetch(`https://randomuser.me/api/?results=${value}${nat}&seed=foobar`).then(res => {
+            await fetch(`https://randomuser.me/api/?results=${value}${nat}${source}`).then(res => {
                 if (res.ok) return res.json()
                 throw new Error('Request failed.')
             }).then(data => data.results.map(result => ({

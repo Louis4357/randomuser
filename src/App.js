@@ -6,6 +6,7 @@ import Table2 from './Table2'
 
 let input
 let selectedCountry
+let selectedDatasource
 
 export default class App extends Component {
   constructor(props) {
@@ -15,13 +16,15 @@ export default class App extends Component {
       country: "",
       showSelected: false,
       username: "",
-      password: ""
+      password: "",
+      datasource: ""
     }
   }
 
   handleSubmit = e => {
     input = this.state.value
     selectedCountry = this.state.country
+    selectedDatasource = this.state.datasource
     e.preventDefault();
     this.setState({value: ""})
   }
@@ -45,8 +48,11 @@ export default class App extends Component {
   }
 
   handleCountrySelect = e => {
-    console.log(e.target.value)
     this.setState({country: e.target.value})
+  }
+
+  handleDatasourceSelect = e => {
+    this.setState({datasource: e.target.value})
   }
 
   render() {
@@ -60,12 +66,14 @@ export default class App extends Component {
                 handleChange={this.handleChange} 
                 keyPress={this.keyPress} 
                 handleCountrySelect={this.handleCountrySelect}
+                handleDatasourceSelect={this.handleDatasourceSelect}
                 input={this.state.value}
-                country={this.state.country} 
+                country={this.state.country}
+                datasource={this.state.datasource}
               />
             </Paper>
             <Paper style={{marginTop: 10, padding: 10}}>
-              <Query value={input} country={selectedCountry} selected={this.handleSelected} />
+              <Query value={input} country={selectedCountry} selected={this.handleSelected} datasource={selectedDatasource} />
             </Paper>
           </Grid>
           <Grid item xs={12} sm={6} >

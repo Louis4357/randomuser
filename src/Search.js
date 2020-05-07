@@ -2,7 +2,7 @@ import React from 'react';
 import { TextField, Button, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
 
 
-export default ({handleSubmit, handleChange, handleCountrySelect, keyPress, input, country }) => {
+export default ({handleSubmit, handleChange, handleCountrySelect, handleDatasourceSelect, keyPress, input, country, datasource }) => {
     const countryPairs = [
         {label: "Australia", value: "AU"},
         {label: "Brazil", value: "BR"},
@@ -26,6 +26,18 @@ export default ({handleSubmit, handleChange, handleCountrySelect, keyPress, inpu
 
     return (
         <form onSubmit={handleSubmit} >
+            <FormControl style={{display: 'block', marginTop: 5}}>
+                <InputLabel required id="datasource">Data Source</InputLabel>
+                <Select
+                    labelId="datasource"
+                    id="datasource-select"
+                    value={datasource}
+                    onChange={handleDatasourceSelect}
+                >
+                    <MenuItem key="random" value={"random"}>Random</MenuItem>
+                    <MenuItem key="seed" value={"seed"}>Not Random</MenuItem>
+                </Select>
+            </FormControl>
             <TextField required id="standard-basic" label="Total Results" type="number" min="0" onChange={handleChange} onKeyDown={keyPress} value={input} />
             <FormControl style={{display: 'block', marginTop: 5}}>
                 <InputLabel id="country-label">Country</InputLabel>
